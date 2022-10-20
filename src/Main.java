@@ -74,9 +74,18 @@ public class Main {
                 System.out.println(length + " number of chars in " + stringInput);
 
                 // Convert string into pig latin
-                char[] vowels = new char[]{'a', 'e', 'i', 'o', 'u'};
-                for (int i = 0; i < length; i++) {
+                char c;
+                int vowelIndex;
+                String newWord = stringInput.toLowerCase();
 
+                for (int i = 0; i < newWord.length(); i++) {
+                    c = newWord.charAt(i);
+                    if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
+                        vowelIndex = newWord.indexOf(c);
+                        System.out.println("Substring from first vowel: " + newWord.substring(vowelIndex) + newWord.substring(0,vowelIndex) + "ay");
+                        break;
+                    }
+                    i++;
                 }
 
             }
