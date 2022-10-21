@@ -1,32 +1,52 @@
+import java.util.*;
 import java.util.Scanner;
 import java.lang.Math; // Need this library to use Math.round
 
 public class Main {
 
+    // Integer palindrome function
+    public static int isNumPalindrome(int n) {
+        int remainder;
+        int reverseNum = 0;
+        int originalNum = n;
+        while (n != 0) {
+            // Use modulo 10 to get last int in number
+            remainder = n % 10;
+            reverseNum = reverseNum * 10 + remainder;
+            n /= 10;
+        }
+        if (originalNum == reverseNum) {
+            System.out.println(originalNum + " is a palindrome!");
+        } else {
+            System.out.println(originalNum + " is NOT a palindrome!");
+        }
+        return reverseNum;
+    }
+
+    // Fibonacci Function
+    static int fib(int n) {
+        if (n <= 1) {
+            return n;
+        }
+
+        return fib(n-1) + fib(n-2);
+    }
     public static void main(String[] args) {
         System.out.println("Enter a random number or word (\"q\" to quit): ");
         // Scan input
         Scanner sc = new Scanner(System.in);
+
         // While loop to run as long as input is not q
         while (!sc.nextLine().equals("q")) {
             // Check if input is an int
             if (sc.hasNextInt()) {
                 int numInput = sc.nextInt();
                 // System.out.println("int: " + numInput);
-                int remainder;
-                int reverseNum = 0;
                 int originalNum = numInput;
-                while (numInput != 0) {
-                    // Use modulo 10 to get last int in number
-                    remainder = originalNum % 10;
-                    reverseNum = reverseNum * 10 + remainder;
-                    numInput /= 10;
-                }
-                if (originalNum == reverseNum) {
-                    System.out.println(originalNum + " is a palindrome!");
-                } else {
-                    System.out.println(originalNum + " is NOT a palindrome!");
-                }
+
+                isNumPalindrome(originalNum);
+
+                // System.out.println("Fib number is: " + fib(originalNum));
             }
             // Check if input is a double
             else if (sc.hasNextDouble()) {
@@ -38,7 +58,6 @@ public class Main {
                 int remainder;
                 int reverseNum = 0;
 
-
                 // Change decimal to percent value
                 double percentVersion = doubleInput * 100;
                 System.out.println(percentVersion + "%");
@@ -46,6 +65,9 @@ public class Main {
                 // Round double to integer
                 double rounded = Math.round(doubleInput);
                 System.out.println("Rounded number: " + rounded);
+
+                // Check if number is palindrome after rounding it up
+                isNumPalindrome((int) rounded);
             }
             // Check if input is a string
             else if(sc.hasNext()) {
@@ -78,11 +100,11 @@ public class Main {
                 int vowelIndex;
                 String newWord = stringInput.toLowerCase();
 
-                for (int i = 0; i < newWord.length(); i++) {
+                for (int i = 0; i <= newWord.length(); i++) {
                     c = newWord.charAt(i);
                     if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
                         vowelIndex = newWord.indexOf(c);
-                        System.out.println("Substring from first vowel: " + newWord.substring(vowelIndex) + newWord.substring(0,vowelIndex) + "ay");
+                        System.out.println("Pig latin conversion: " + newWord.substring(vowelIndex) + newWord.substring(0,vowelIndex) + "ay");
                         break;
                     }
                     i++;
