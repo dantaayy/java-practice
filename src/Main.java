@@ -24,12 +24,24 @@ public class Main {
     }
 
     // Fibonacci Function
-    static int fib(int n) {
+    private static int fib(int n) {
         if (n <= 1) {
             return n;
         }
+        // placeholders for fib func for speed efficiency
+        int a = 0;
+        int b = 1;
+        int sum = a + b;
 
-        return fib(n-1) + fib(n-2);
+        while(n > 1) {
+            sum = a + b;
+            a = b;
+            b = sum;
+            n--;
+        }
+        // return previous fib number
+        return a;
+//      return fib(n-1) + fib(n-2);
     }
     public static void main(String[] args) {
         System.out.println("Enter a random number or word (\"q\" to quit): ");
@@ -46,17 +58,13 @@ public class Main {
 
                 isNumPalindrome(originalNum);
 
-                // System.out.println("Fib number is: " + fib(originalNum));
+                // Print fib function
+                System.out.println("Previous fib number is: " + fib(numInput));
             }
             // Check if input is a double
             else if (sc.hasNextDouble()) {
                 double doubleInput = sc.nextDouble();
-                // System.out.println("double: " + doubleInput);
                 double originalNum = doubleInput;
-
-                // Check if double is palindrome
-                int remainder;
-                int reverseNum = 0;
 
                 // Change decimal to percent value
                 double percentVersion = doubleInput * 100;
