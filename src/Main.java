@@ -1,4 +1,3 @@
-import java.util.*;
 import java.util.Scanner;
 import java.lang.Math; // Need this library to use Math.round
 
@@ -41,84 +40,90 @@ public class Main {
         }
         // return previous fib number
         return a;
-//      return fib(n-1) + fib(n-2);
     }
+
+    // Method to change num to percent value
+    public static double percentChange(double n) {
+        double percentVal = n * 100;
+        return percentVal;
+    }
+
+    public static void pigLatinConversion(String input) {
+        // Convert string into pig latin
+        char c;
+        int vowelIndex;
+        String newWord = input.toLowerCase();
+
+        for (int i = 0; i < newWord.length(); i++) {
+            c = newWord.charAt(i);
+            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
+                vowelIndex = newWord.indexOf(c);
+                System.out.println("Pig latin conversion: " + newWord.substring(vowelIndex) + newWord.substring(0,vowelIndex) + "ay");
+                break;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("Enter a random number or word (\"q\" to quit): ");
         // Scan input
         Scanner sc = new Scanner(System.in);
 
-        // While loop to run as long as input is not q
-        while (!sc.nextLine().equals("q")) {
-            // Check if input is an int
-            if (sc.hasNextInt()) {
-                int numInput = sc.nextInt();
-                // System.out.println("int: " + numInput);
-                int originalNum = numInput;
+        // Check if input is an int
+        if (sc.hasNextInt()) {
+            int numInput = sc.nextInt();
+            int originalNum = numInput;
 
-                isNumPalindrome(originalNum);
+            isNumPalindrome(originalNum);
 
-                // Print fib function
-                System.out.println("Previous fib number is: " + fib(numInput));
+            // Print fib function
+            System.out.println("Previous fib number is: " + fib(numInput));
+        }
+
+        // Check if input is a double
+        else if (sc.hasNextDouble()) {
+            double doubleInput = sc.nextDouble();
+            double originalNum = doubleInput;
+
+            // Change decimal to percent value
+            System.out.println(percentChange(doubleInput) + "%");
+
+            // Round double to integer
+            double rounded = Math.round(doubleInput);
+            System.out.println("Rounded number: " + rounded);
+
+            // Check if rounded number is a palindrome
+            isNumPalindrome((int) rounded);
+        }
+
+        // Check if input is a string
+        else if(sc.hasNext()) {
+            String stringInput = sc.next();
+            String originalStr = stringInput;
+            // System.out.println("String: " + stringInput);
+            if(stringInput.equals("q")) {
+                System.out.println("Exited");
+                return;
             }
-            // Check if input is a double
-            else if (sc.hasNextDouble()) {
-                double doubleInput = sc.nextDouble();
-                double originalNum = doubleInput;
-
-                // Change decimal to percent value
-                double percentVersion = doubleInput * 100;
-                System.out.println(percentVersion + "%");
-
-                // Round double to integer
-                double rounded = Math.round(doubleInput);
-                System.out.println("Rounded number: " + rounded);
-
-                // Check if number is palindrome after rounding it up
-                isNumPalindrome((int) rounded);
+            int length = stringInput.length();
+            // Initialize empty string to rewrite originalStr
+            String reversed = "";
+            // Start at end of string
+            for (int i = length-1; i >= 0; i--) {
+                reversed = reversed + stringInput.charAt(i);
             }
-            // Check if input is a string
-            else if(sc.hasNext()) {
-                String stringInput = sc.next();
-                String originalStr = stringInput;
-                // System.out.println("String: " + stringInput);
-                if(stringInput.equals("q")) {
-                    System.out.println("Exited");
-                    break;
-                }
-                int length = stringInput.length();
-                // Initialize empty string to rewrite originalStr
-                String reversed = "";
-                // Start at end of string
-                for (int i = length-1; i >= 0; i--) {
-                    reversed = reversed + stringInput.charAt(i);
-                }
-                // Check if originalStr matches reversed
-                if(originalStr.toLowerCase().equals(reversed.toLowerCase())) {
-                    System.out.println(stringInput + " is a palindrome!");
-                } else {
-                    System.out.println(stringInput + " is NOT a palindrome!");
-                }
-
-                // Print out number of char in string
-                System.out.println(length + " number of chars in " + stringInput);
-
-                // Convert string into pig latin
-                char c;
-                int vowelIndex;
-                String newWord = stringInput.toLowerCase();
-
-                for (int i = 0; i <= newWord.length(); i++) {
-                    c = newWord.charAt(i);
-                    if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
-                        vowelIndex = newWord.indexOf(c);
-                        System.out.println("Pig latin conversion: " + newWord.substring(vowelIndex) + newWord.substring(0,vowelIndex) + "ay");
-                        break;
-                    }
-                    i++;
-                }
-
+            // Check if originalStr matches reversed
+            if(originalStr.toLowerCase().equals(reversed.toLowerCase())) {
+                System.out.println(stringInput + " is a palindrome!");
+            } else {
+                System.out.println(stringInput + " is NOT a palindrome!");
             }
+
+            // Print out number of char in string
+            System.out.println(length + " number of chars in " + stringInput);
+
+            // Convert string into pig latin
+            pigLatinConversion(stringInput);
 
         }
     }
