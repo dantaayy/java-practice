@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Scanner;
 import java.lang.Math; // Need this library to use Math.round
 
@@ -48,6 +49,23 @@ public class Main {
         return percentVal;
     }
 
+    public static void isStringPalindrome(String stringInput) {
+        String originalStr = stringInput;
+        int length = stringInput.length();
+        // Initialize empty string to rewrite originalStr
+        String reversed = "";
+        // Start at end of string
+        for (int i = length-1; i >= 0; i--) {
+            reversed = reversed + stringInput.charAt(i);
+        }
+        // Check if originalStr matches reversed
+        if(originalStr.toLowerCase().equals(reversed.toLowerCase())) {
+            System.out.println(stringInput + " is a palindrome!");
+        } else {
+            System.out.println(stringInput + " is NOT a palindrome!");
+        }
+    }
+
     public static void pigLatinConversion(String input) {
         // Convert string into pig latin
         char c;
@@ -60,6 +78,34 @@ public class Main {
                 vowelIndex = newWord.indexOf(c);
                 System.out.println("Pig latin conversion: " + newWord.substring(vowelIndex) + newWord.substring(0,vowelIndex) + "ay");
                 break;
+            }
+        }
+    }
+
+    public static void repeatedChars(String input) {
+        // Split string into char array
+        char[] charArray = input.toCharArray();
+
+        // use char as map key every iteration
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        // for each loop to loop over the char array
+        for(char c: charArray) {
+            // If char already exists increment count
+            if(map.containsKey(c)) {
+                int count = map.get(c);
+                map.put(c, ++count);
+            } else {
+                // This will initialize the char at count 1
+                map.put(c, 1);
+            }
+        }
+
+        // Loop through the keys which are characters
+        for(char c: map.keySet()) {
+            // Print char out if value is greater than 1
+            if(map.get(c) > 1) {
+                System.out.print(c + ": " + map.get(c) + ", ");
             }
         }
     }
@@ -83,7 +129,6 @@ public class Main {
         // Check if input is a double
         else if (sc.hasNextDouble()) {
             double doubleInput = sc.nextDouble();
-            double originalNum = doubleInput;
 
             // Change decimal to percent value
             System.out.println(percentChange(doubleInput) + "%");
@@ -99,32 +144,23 @@ public class Main {
         // Check if input is a string
         else if(sc.hasNext()) {
             String stringInput = sc.next();
-            String originalStr = stringInput;
-            // System.out.println("String: " + stringInput);
+
             if(stringInput.equals("q")) {
                 System.out.println("Exited");
                 return;
             }
-            int length = stringInput.length();
-            // Initialize empty string to rewrite originalStr
-            String reversed = "";
-            // Start at end of string
-            for (int i = length-1; i >= 0; i--) {
-                reversed = reversed + stringInput.charAt(i);
-            }
-            // Check if originalStr matches reversed
-            if(originalStr.toLowerCase().equals(reversed.toLowerCase())) {
-                System.out.println(stringInput + " is a palindrome!");
-            } else {
-                System.out.println(stringInput + " is NOT a palindrome!");
-            }
+
+            // Utilize isStringPalindrome method
+            isStringPalindrome(stringInput);
 
             // Print out number of char in string
-            System.out.println(length + " number of chars in " + stringInput);
+            System.out.println(stringInput.length() + " number of chars in " + stringInput);
 
             // Convert string into pig latin
             pigLatinConversion(stringInput);
 
+            // Print out repeated chars
+            repeatedChars(stringInput);
         }
     }
 }
