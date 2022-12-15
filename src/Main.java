@@ -115,52 +115,59 @@ public class Main {
         // Scan input
         Scanner sc = new Scanner(System.in);
 
-        // Check if input is an int
-        if (sc.hasNextInt()) {
-            int numInput = sc.nextInt();
-            int originalNum = numInput;
+        while (true) {
+            // Check if input is an int
+            if (sc.hasNextInt()) {
+                int numInput = sc.nextInt();
+                int originalNum = numInput;
 
-            isNumPalindrome(originalNum);
+                isNumPalindrome(originalNum);
 
-            // Print fib function
-            System.out.println("Previous fib number is: " + fib(numInput));
-        }
-
-        // Check if input is a double
-        else if (sc.hasNextDouble()) {
-            double doubleInput = sc.nextDouble();
-
-            // Change decimal to percent value
-            System.out.println(percentChange(doubleInput) + "%");
-
-            // Round double to integer
-            double rounded = Math.round(doubleInput);
-            System.out.println("Rounded number: " + rounded);
-
-            // Check if rounded number is a palindrome
-            isNumPalindrome((int) rounded);
-        }
-
-        // Check if input is a string
-        else if(sc.hasNext()) {
-            String stringInput = sc.next();
-
-            if(stringInput.equals("q")) {
-                System.out.println("Exited");
-                return;
+                // Print fib function
+                System.out.println("Previous fib number is: " + fib(numInput));
             }
 
-            // Utilize isStringPalindrome method
-            isStringPalindrome(stringInput);
+            // Check if input is a double
+            else if (sc.hasNextDouble()) {
+                double doubleInput = sc.nextDouble();
 
-            // Print out number of char in string
-            System.out.println(stringInput.length() + " number of chars in " + stringInput);
+                // Change decimal to percent value
+                System.out.println(percentChange(doubleInput) + "%");
 
-            // Convert string into pig latin
-            pigLatinConversion(stringInput);
+                // Round double to integer
+                double rounded = Math.round(doubleInput);
+                System.out.println("Rounded number: " + rounded);
 
-            // Print out repeated chars
-            repeatedChars(stringInput);
+                // Check if rounded number is a palindrome
+                isNumPalindrome((int) rounded);
+            }
+
+            // Check if input is a string
+            else if (sc.hasNext()) {
+                String stringInput = sc.next();
+
+                if (stringInput.equals("q")) {
+                    System.out.println("Exited");
+                    return;
+                }
+
+                // Utilize isStringPalindrome method
+                isStringPalindrome(stringInput);
+
+                // Print out number of char in string
+                System.out.println(stringInput.length() + " number of chars in " + stringInput);
+
+                // Convert string into pig latin
+                pigLatinConversion(stringInput);
+
+                // Print out repeated chars
+                System.out.print("Repeated chars are: ");
+                repeatedChars(stringInput);
+            }
+
+            // Ask user if they like to quit or continue
+            System.out.println();
+            System.out.println("Enter 'q' to quit or enter a random # or word to continue");
         }
     }
 }
